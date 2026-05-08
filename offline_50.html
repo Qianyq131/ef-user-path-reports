@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="UTF-8">
+<title>线下成交 · Rank#50 · 单用户路径分析</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:#0d1b2a;color:#c8d8e8;min-height:100vh;padding:24px}
+.header{background:linear-gradient(135deg,#1a3a5c,#0f2540);border-radius:12px;padding:24px 32px;margin-bottom:20px;border:1px solid #2a4a6c}
+.header h1{font-size:16px;color:#7fb3d3;margin-bottom:6px}.header h2{font-size:26px;color:#fff;margin-bottom:8px}
+.skipped{font-size:12px;color:#d4a84b;background:#2a1f0a;border:1px solid #6a4f1a;border-radius:6px;padding:6px 12px;display:inline-block;margin-bottom:12px}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.meta-card{background:#0f2540;border-radius:8px;padding:14px;border:1px solid #2a4a6c;text-align:center}
+.meta-label{font-size:11px;color:#7fb3d3;margin-bottom:6px}.meta-value{font-size:22px;font-weight:700;color:#fff}
+.meta-sub{font-size:11px;color:#5a8ab0;margin-top:3px}
+.section{background:#111f2e;border-radius:10px;padding:20px 24px;margin-bottom:16px;border:1px solid #1e3a5c}
+.section-title{font-size:15px;font-weight:600;color:#7fb3d3;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #1e3a5c}
+.path-flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:12px;background:#0d1b2a;border-radius:8px}
+.path-node{background:#1a3a5c;border:1px solid #2a5a8c;border-radius:6px;padding:6px 12px;font-size:12px;color:#a8c8e8}
+.path-arrow{color:#4a7a9c;font-size:14px}.path-end{background:#1a4a2a;border-color:#2a6a3c;color:#6acf8a}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#0f2540;color:#7fb3d3;padding:10px 12px;text-align:left;font-weight:500}
+td{padding:9px 12px;border-bottom:1px solid #1a2e42;color:#c0d0e0}
+tr:hover td{background:#142030}
+.note-title{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.field-tag{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500}
+.field-视频内流{background:#1a2a4a;color:#6a9fd8}.field-信息流{background:#1a3a2a;color:#6abf8a}
+.field-搜索{background:#3a2a1a;color:#d8a06a}.field-其他{background:#2a2a2a;color:#888}
+.brand-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.brand-name{width:100px;font-size:12px;flex-shrink:0}
+.bar-wrap{flex:1;background:#0d1b2a;border-radius:4px;height:8px}
+.bar{height:8px;border-radius:4px;background:linear-gradient(90deg,#2a5a9c,#4a8adc)}
+.ef-brand .bar{background:linear-gradient(90deg,#1a6a3a,#2aaa6a)}
+.ef-brand .brand-name{color:#6abf8a}
+.brand-cnt{font-size:11px;color:#5a8ab0;width:40px;text-align:right;flex-shrink:0}
+.footnote{text-align:center;font-size:11px;color:#3a5a7c;margin-top:20px;padding:12px}
+</style></head>
+<body>
+<div class="header">
+  <h1>线下成交 · 单用户路径分析 · INDUSTRY 口径 · READ</h1>
+  <h2>英孚教育 · 阅读 Rank #50</h2>
+  
+  <div class="meta-grid">
+    <div class="meta-card"><div class="meta-label">总阅读量</div><div class="meta-value">114</div><div class="meta-sub">条行业笔记</div></div>
+    <div class="meta-card"><div class="meta-label">接触品牌数</div><div class="meta-value">34</div><div class="meta-sub">个品牌</div></div>
+    <div class="meta-card"><div class="meta-label">主动搜索</div><div class="meta-value">3</div><div class="meta-sub">次 · 搜后阅读 4 条</div></div>
+    <div class="meta-card"><div class="meta-label">代表笔记窗口</div><div class="meta-value">16</div><div class="meta-sub">天（2026-02-24~2026-03-12）</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">📍 转化前行为路径（10步）</div>
+  <div class="path-flow">
+    <span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node ">信息流阅读</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读×5</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node ">信息流阅读</span><span class="path-arrow">→</span><span class="path-node ">视频内流阅读</span><span class="path-arrow">→</span><span class="path-node path-end">转化
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">📊 场域分布（代表性10条）</div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap">
+    <div style="background:#0d1b2a;border-radius:8px;padding:12px 20px;text-align:center"><div style="font-size:11px;color:#7fb3d3">视频内流</div><div style="font-size:24px;font-weight:700;color:#fff;margin:4px 0">9</div><div style="font-size:11px;color:#5a8ab0">90%</div></div><div style="background:#0d1b2a;border-radius:8px;padding:12px 20px;text-align:center"><div style="font-size:11px;color:#7fb3d3">信息流</div><div style="font-size:24px;font-weight:700;color:#fff;margin:4px 0">1</div><div style="font-size:11px;color:#5a8ab0">10%</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🏷️ TOP 品牌接触频次（代表性10条）</div>
+  <div class="brand-row">
+            <span class="brand-name">吉的堡</span>
+            <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+            <span class="brand-cnt">2 条</span>
+        </div><div class="brand-row">
+            <span class="brand-name">自然拼读</span>
+            <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+            <span class="brand-cnt">2 条</span>
+        </div><div class="brand-row">
+            <span class="brand-name">LingoAce</span>
+            <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+            <span class="brand-cnt">2 条</span>
+        </div><div class="brand-row ef-brand">
+            <span class="brand-name">英孚教育</span>
+            <div class="bar-wrap"><div class="bar" style="width:100%"></div></div>
+            <span class="brand-cnt">2 条</span>
+        </div><div class="brand-row">
+            <span class="brand-name">Airclass 1-on-1</span>
+            <div class="bar-wrap"><div class="bar" style="width:50%"></div></div>
+            <span class="brand-cnt">1 条</span>
+        </div>
+  <div style="font-size:11px;color:#5a8ab0;margin-top:10px">🔵 = 英孚教育 · 本品牌出现 2/10 条（20%）</div>
+</div>
+
+<div class="section">
+  <div class="section-title">📝 笔记明细（代表性10条）</div>
+  <table>
+    <tr><th>#</th><th>日期</th><th>场域</th><th>笔记标题</th><th>品牌</th><th>作者类型</th></tr>
+    <tr>
+            <td>1</td><td>2026-03-12</td>
+            <td><span class="field-tag field-信息流">信息流</span></td>
+            <td class="note-title">吉的堡沉浸式带读，娃阅读表达力开挂了❗</td>
+            <td>吉的堡</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>2</td><td>2026-03-12</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">谁懂啊！吉的堡让娃👶听说读写全开窍</td>
+            <td>吉的堡</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>3</td><td>2026-03-11</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">让孩子敢听敢说敢表达！英语就要这样学！</td>
+            <td>Airclass 1-on-1</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>4</td><td>2026-03-10</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">1元1节外教课，让娃轻松成为双语强娃😍</td>
+            <td>自然拼读</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>5</td><td>2026-02-27</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">英渣娃口语有救了🤩宅家就能上1v1外教课</td>
+            <td>LingoAce</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>6</td><td>2026-02-26</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">1元1节外教课，让娃轻松成为双语强娃😍</td>
+            <td>自然拼读</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>7</td><td>2026-02-24</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">外教口语课上了半年，真实反馈</td>
+            <td>PollyEnglish</td>
+            <td>蒲公英</td>
+        </tr><tr>
+            <td>8</td><td>2026-02-24</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">🔵3-6岁英语启蒙不会做❓推爆英孚这个线下课❗️</td>
+            <td>英孚教育</td>
+            <td>企业号</td>
+        </tr><tr>
+            <td>9</td><td>2026-02-24</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">怎么会有这么靠谱又便宜的线上外教口语1V1</td>
+            <td>LingoAce</td>
+            <td>蒲公英</td>
+        </tr><tr>
+            <td>10</td><td>2026-02-24</td>
+            <td><span class="field-tag field-视频内流">视频内流</span></td>
+            <td class="note-title">🔵零基础英语启蒙✅找对方法其实很简单！</td>
+            <td>英孚教育</td>
+            <td>企业号</td>
+        </tr>
+  </table>
+</div>
+
+<div class="footnote">
+  数据来源：灵犀 idea-cli-audience-user-path · task_id=27239 · INDUSTRY · READ · Rank #50<br>
+  
+  生成于 2026-04-22
+</div>
+</body></html>
