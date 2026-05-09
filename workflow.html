@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI × 季白 · 工作流总览</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f7f8fc;
+    color: #1a1a2e;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    max-width: 960px;
+    margin: 0 auto 48px;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: .5px;
+  }
+  .page-header .sub {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #888;
+  }
+  .page-header .tag {
+    display: inline-block;
+    background: #ff2442;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── Section ── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto 48px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .num {
+    width: 32px; height: 32px;
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Two-column for 对内 / 对外 ── */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 680px) { .cols { grid-template-columns: 1fr; } }
+
+  /* ── Card Group ── */
+  .card-group {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    border: 1px solid #eee;
+  }
+  .card-group-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-group-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-internal { background: #5c6bc0; }
+  .dot-external { background: #26a69a; }
+  .label-internal { color: #5c6bc0; }
+  .label-external { color: #26a69a; }
+
+  /* ── Scene Item ── */
+  .scene {
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .scene:last-child { border-bottom: none; padding-bottom: 0; }
+  .scene-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scene-name .icon { font-size: 16px; }
+  .tag-ai {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+  }
+  .tag-human {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.55;
+  }
+  .item-bullet {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #ccc;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .item.ai .item-bullet { background: #ff9800; }
+  .item.human .item-bullet { background: #66bb6a; }
+
+  /* ── Future Section ── */
+  .future-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .future-grid { grid-template-columns: 1fr; } }
+
+  .future-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    border: 1px solid #eee;
+    position: relative;
+    overflow: hidden;
+  }
+  .future-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .future-card.f1::before { background: linear-gradient(90deg, #5c6bc0, #7e57c2); }
+  .future-card.f2::before { background: linear-gradient(90deg, #26a69a, #00acc1); }
+  .future-card.f3::before { background: linear-gradient(90deg, #ef5350, #ff7043); }
+
+  .future-num {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .f1 .future-num { color: #5c6bc0; }
+  .f2 .future-num { color: #26a69a; }
+  .f3 .future-num { color: #ef5350; }
+
+  .future-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .future-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .future-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .future-item {
+    font-size: 12px;
+    color: #555;
+    background: #f8f8f8;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+  }
+  .future-item::before {
+    content: '›';
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .f1 .future-item::before { color: #5c6bc0; }
+  .f2 .future-item::before { color: #26a69a; }
+  .f3 .future-item::before { color: #ef5350; }
+
+  /* ── Legend ── */
+  .legend {
+    max-width: 960px;
+    margin: 0 auto 32px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .legend-tag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 7px; border-radius: 10px;
+  }
+
+  .divider {
+    max-width: 960px;
+    margin: 0 auto 32px;
+    height: 1px;
+    background: #eee;
+  }
+
+  .footer {
+    max-width: 960px;
+    margin: 40px auto 0;
+    font-size: 12px;
+    color: #bbb;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1><span class="tag">Aimi × 季白</span> 日常工作流 & AI 提效地图</h1>
+  <div class="sub">梳理于 2026-05-09 · 覆盖留学/语言/国际教育赛道的 AI 协作模式</div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#ff9800"></div>
+    <span class="legend-tag tag-ai">AI主导</span>
+    <span>AI 自动执行，人工 review</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#66bb6a"></div>
+    <span class="legend-tag tag-human">人工主导</span>
+    <span>人工决策，AI 辅助提速</span>
+  </div>
+</div>
+
+<!-- PART 1 -->
+<div class="section">
+  <div class="section-title">
+    <div class="num">一</div>
+    日常应用（高人力耗用 · 可持续提效）
+  </div>
+
+  <div class="cols">
+
+    <!-- 对内 -->
+    <div class="card-group">
+      <div class="card-group-title">
+        <div class="dot dot-internal"></div>
+        <span class="label-internal">对内应用场景</span>
+      </div>
+
+      <!-- 盯盘 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">📊</span> 盯盘
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>每日 10:10 自动读取 RedBI 看板，筛选消耗环比 >10% 的客户，三层下钻分析（基建 → 出价 → 赛道大盘），输出日报初稿</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>实时监控赛道搜索趋势（雅思/托福/留学/成人英语），异动自动标注</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>人工补充运营动作，判断是否需要调整策略</span></div>
+        </div>
+      </div>
+
+      <!-- 文档输出 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">📝</span> 文档输出
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>OKR 复盘演讲稿、汇报 PPT 素材、周报月报初稿自动生成</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>Redoc 文档创建、章节拼接、评论回复</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>REDcase 竞赛：基于方法论辅助写故事线大纲、文案打磨</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>方向确认、核心观点输出、最终 review</span></div>
+        </div>
+      </div>
+
+      <!-- idea 共创 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">💡</span> Idea 共创
+          <span class="tag-human">人工主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>基于赛道搜索词/内容洞察数据，快速生成内容方向选题池</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>竞品内容对比、热门话题挖掘、创意公式提炼</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>KOS/KFS 内容方向建议，结合 CTR & 留资成本数据筛选</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>方向拍板、与客户沟通创意共识</span></div>
+        </div>
+      </div>
+
+      <!-- 数据洞察 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">🔍</span> 数据洞察
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>灵犀 40+ CLI 工具调用：人群流转、渗透分析、品牌认知、AIPS 资产、搜索洞察</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>RedBI 多维取数（投放消耗/场域效率/内容效果/私信漏斗）</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>每周一自动更新热搜词看板（16 赛道 × 近30日 Top1000）</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>关键结论解读、提炼对策</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 对外 -->
+    <div class="card-group">
+      <div class="card-group-title">
+        <div class="dot dot-external"></div>
+        <span class="label-external">对外应用场景</span>
+      </div>
+
+      <!-- 复盘 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">📈</span> 客户复盘报告
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>全自动生成季度/年度复盘：行业洞察 → 投放分析 → 基建 → 内容 → 私信效率 → Summary 六章结构</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>支持两条路径：AI 自动取数（品牌词+竞品词）/ 人工底表 Excel 读取分析</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>结论永远在数据表格前，取不到数则删除章节，不编数</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>提供品牌词/竞品词，review 后发送给客户</span></div>
+        </div>
+      </div>
+
+      <!-- 一方分析 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">👤</span> 一方数据分析（用户路径报告）
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>抓取灵犀用户路径报告：AI 解读、决策笔记、场域分布、品牌接触路径</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>画像数据下载（22 个维度），生成人群特征摘要</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>整合成 Redoc 文档，含数据快照 + 关键发现 + 投放建议</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>口径确认、与客户共同解读，推动投放动作</span></div>
+        </div>
+      </div>
+
+      <!-- 行业数据 -->
+      <div class="scene">
+        <div class="scene-name">
+          <span class="icon">🌐</span> 行业数据提供
+          <span class="tag-ai">AI主导</span>
+        </div>
+        <div class="items">
+          <div class="item ai"><div class="item-bullet"></div><span>赛道供需分析：搜索量 × 供给量 × PVR 空间综合评估，识别蓝海机会</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>热搜词看板：对外分享链接（GitHub Pages），每周自动更新</span></div>
+          <div class="item ai"><div class="item-bullet"></div><span>可视化行业洞察页面（algo/GitHub Pages 一键部署）</span></div>
+          <div class="item human"><div class="item-bullet"></div><span>选择提供给哪个客户、配合口头解读</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PART 2 -->
+<div class="section">
+  <div class="section-title">
+    <div class="num">二</div>
+    未来待提升方向
+  </div>
+
+  <div class="future-grid">
+
+    <div class="future-card f1">
+      <div class="future-num">Direction 01</div>
+      <div class="future-title">常规内容模板化输出</div>
+      <div class="future-desc">将高频报告标准化，减少每次从零搭建的人力损耗，形成可复用的输出流水线。</div>
+      <div class="future-items">
+        <div class="future-item">赛道双月报：搜索趋势 + 消耗数据 + 赛道分层结论模板化</div>
+        <div class="future-item">客户月度复盘：数据字段固定、结论框架统一，一键生成</div>
+        <div class="future-item">季度复盘：六章结构标准化，品牌词输入即生成</div>
+        <div class="future-item">一方分析：路径报告 + 画像 + 建议三段式固化，缩短取数到交付时间</div>
+      </div>
+    </div>
+
+    <div class="future-card f2">
+      <div class="future-num">Direction 02</div>
+      <div class="future-title">行业策略输出能力</div>
+      <div class="future-desc">当前 AI 擅长取数与结构化，但行业判断依赖人工经验。需要构建知识库支撑策略层输出。</div>
+      <div class="future-items">
+        <div class="future-item">积累赛道知识库：各赛道特性、关键节点、历史规律沉淀</div>
+        <div class="future-item">客户画像库：头客的业务结构、历史策略、关键人记录</div>
+        <div class="future-item">策略方案生成：基于洞察 → 自动输出可落地策略初稿</div>
+        <div class="future-item">REDcase 方法论内化：自动识别"真问题 + 创新解法 + 可产品化"要素</div>
+      </div>
+    </div>
+
+    <div class="future-card f3">
+      <div class="future-num">Direction 03</div>
+      <div class="future-title">数据自校验机制</div>
+      <div class="future-desc">当前存在 AI 口径错误、编数风险，需人工复查耗时。目标是 AI 自主完成数据核验。</div>
+      <div class="future-items">
+        <div class="future-item">交叉验证：同一指标从多个数据源取数比对，差异自动标注</div>
+        <div class="future-item">口径校验：报告中每个数字标注来源 chartId + 查询条件</div>
+        <div class="future-item">异常检测：数值超出历史范围时自动预警，不直接写入结论</div>
+        <div class="future-item">0 行保护：取数返回 0 时强制提示，不写占位结论，等人确认</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  Aimi × 季白 · 语言&留学赛道 AI 提效地图 · 2026-05-09
+</div>
+
+</body>
+</html>
